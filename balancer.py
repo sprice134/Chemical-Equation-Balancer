@@ -4,7 +4,7 @@ def splitAlpha(x):
         if x[i].isupper():
             y.append(i)
     if len(y) == 1:
-        print(x)
+        return x
     elif len(y) > 1:
         sections = list()
         for i in range(len(y)):
@@ -39,6 +39,15 @@ def findSyntax(x):
     else:
         return []
 
+def countOccurences(x):
+    counted = list()
+    countedResults = dict()
+    for i in range(len(x)):
+        if x[i] not in counted:
+            counted.append(x[i])
+            countedResults[x[i]] = x.count(x[i])
+    print(countedResults)
+
 def handleString(x):
     badChars = ['/', ',', '.', '-',' ','!','^']
     for i in range(len(x)):
@@ -46,7 +55,6 @@ def handleString(x):
             print("Please provide proper syntax")
             return ""
     test = findSyntax(x)
-    print(len(test))
     if len(test) > 0:
         stringSwitchBefore = x[test[0]-1: test[1]+1]
         stringSwitchAfter = x[test[0]:test[1]]
@@ -60,11 +68,28 @@ def handleString(x):
                 x += stringSwitchAfter
         else:
             x += stringSwitchAfter
+    x = splitAlpha(x)
+    '''length = len(x)
+    for i in range(length):
+        alphaValues = ''
+        numValues = 0
+        current = x[i]
+        if len(current) > 1:
+            for j in range(len(current)):
+                if current[j].isdigit():
+                    numValues += int(current[j])
+                elif current[j].isalpha():
+                    alphaValues += current[j]
+        x[i] = alphaValues
+        for i in range(numValues):
+            x.append(alphaValues)'''
     return x
 
 def mainMethod():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
     x = input("What is the first reactant: \n")
-    print(handleString(x))
+    y = handleString(x)
+    print(y)
+    countOccurences(y)
 
 mainMethod()
