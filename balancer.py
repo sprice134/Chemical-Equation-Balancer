@@ -39,10 +39,14 @@ def findSyntax(x):
     else:
         return []
 
+def eliminateSyntax(num1, num2, molecule):
+    pass
+
 def countOccurences(x):
     counted = list()
     countedResults = dict()
     newList = list()
+    newList2 = list()
     for i in range(len(x)):
         if x[i] not in counted:
             counted.append(x[i])
@@ -50,9 +54,27 @@ def countOccurences(x):
     for i in countedResults:
         for j in range(countedResults[i]):
             newList.append(i)
-        
-    print(countedResults)
-    print(newList)
+    for i in newList:
+        string = ''
+        num = ''
+        for j in range(len(i)):
+            if i[j].isalpha():
+                string += i[j]
+            elif i[j].isdigit():
+                num += i[j]
+        if num != '':
+            for k in range(int(num)):
+                newList2.append(string)
+        elif num == '':
+            newList2.append(string)
+    counted = []
+    countedResults = {}
+    for i in range(len(newList2)):
+        if newList2[i] not in counted:
+            counted.append(newList2[i])
+            countedResults[newList2[i]] = newList2.count(newList2[i])
+    return countedResults
+
 
 def handleString(x):
     badChars = ['/', ',', '.', '-',' ','!','^']
@@ -74,28 +96,12 @@ def handleString(x):
                 x += stringSwitchAfter
         else:
             x += stringSwitchAfter
-    print(x)
-    x = splitAlpha(x)
-    print(x) 
-    '''length = len(x)
-    for i in range(length):
-        alphaValues = ''
-        numValues = 0
-        current = x[i]
-        if len(current) > 1:
-            for j in range(len(current)):
-                if current[j].isdigit():
-                    numValues += int(current[j])
-                elif current[j].isalpha():
-                    alphaValues += current[j]
-        x[i] = alphaValues
-        for i in range(numValues):
-            x.append(alphaValues)'''
+    x = splitAlpha(x) 
     return x
 
 def mainMethod():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
     x = input("What is the first reactant: \n")
     y = handleString(x)
-    countOccurences(y)
+    print(countOccurences(y))
 mainMethod()
