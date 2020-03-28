@@ -42,11 +42,17 @@ def findSyntax(x):
 def countOccurences(x):
     counted = list()
     countedResults = dict()
+    newList = list()
     for i in range(len(x)):
         if x[i] not in counted:
             counted.append(x[i])
             countedResults[x[i]] = x.count(x[i])
+    for i in countedResults:
+        for j in range(countedResults[i]):
+            newList.append(i)
+        
     print(countedResults)
+    print(newList)
 
 def handleString(x):
     badChars = ['/', ',', '.', '-',' ','!','^']
@@ -61,21 +67,35 @@ def handleString(x):
         passes = 0
         if x[test[1]+1].isdigit():
             passes = int(x[test[1]+1])
-            x = x.replace(x[test[1]+1], '')
+            x = x[:test[1]+1] + x[test[1]+2:]
         x = x.replace(stringSwitchBefore, '')
         if passes > 0:
             for i in range(passes):
                 x += stringSwitchAfter
         else:
             x += stringSwitchAfter
+    print(x)
     x = splitAlpha(x)
-    print(x)        
+    print(x) 
+    '''length = len(x)
+    for i in range(length):
+        alphaValues = ''
+        numValues = 0
+        current = x[i]
+        if len(current) > 1:
+            for j in range(len(current)):
+                if current[j].isdigit():
+                    numValues += int(current[j])
+                elif current[j].isalpha():
+                    alphaValues += current[j]
+        x[i] = alphaValues
+        for i in range(numValues):
+            x.append(alphaValues)'''
     return x
 
 def mainMethod():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
     x = input("What is the first reactant: \n")
     y = handleString(x)
-    print(y)
     countOccurences(y)
 mainMethod()
