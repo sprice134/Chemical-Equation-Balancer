@@ -39,22 +39,25 @@ def findSyntax(x):
     else:
         return []
 
-def eliminateSyntax(num1, num2, molecule):
-    pass
+def eliminateSyntax(num1, num2, x):
+    stringSwitchBefore = x[num1-1: num2+1]
+    stringSwitchAfter = x[num1:num2]
+    passes = 0
+    if x[num2+1].isdigit():
+        passes = int(x[num2+1])
+        x = x[:num2+1] + x[num2+2:]
+    x = x.replace(stringSwitchBefore, '')
+    if passes > 0:
+        for i in range(passes):
+            x += stringSwitchAfter
+    else:
+        x += stringSwitchAfter
+    return x
 
 def countOccurences(x):
-    counted = list()
-    countedResults = dict()
     newList = list()
     newList2 = list()
-    for i in range(len(x)):
-        if x[i] not in counted:
-            counted.append(x[i])
-            countedResults[x[i]] = x.count(x[i])
-    for i in countedResults:
-        for j in range(countedResults[i]):
-            newList.append(i)
-    for i in newList:
+    for i in x:
         string = ''
         num = ''
         for j in range(len(i)):
@@ -84,24 +87,14 @@ def handleString(x):
             return ""
     test = findSyntax(x)
     if len(test) > 0:
-        stringSwitchBefore = x[test[0]-1: test[1]+1]
-        stringSwitchAfter = x[test[0]:test[1]]
-        passes = 0
-        if x[test[1]+1].isdigit():
-            passes = int(x[test[1]+1])
-            x = x[:test[1]+1] + x[test[1]+2:]
-        x = x.replace(stringSwitchBefore, '')
-        if passes > 0:
-            for i in range(passes):
-                x += stringSwitchAfter
-        else:
-            x += stringSwitchAfter
-    x = splitAlpha(x) 
+        x = eliminateSyntax(test[0], test[1], x)
+    x = splitAlpha(x)
+    x = countOccurences(x) 
     return x
 
 def mainMethod():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
     x = input("What is the first reactant: \n")
     y = handleString(x)
-    print(countOccurences(y))
+    print(y)
 mainMethod()
