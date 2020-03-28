@@ -69,20 +69,7 @@ def handleString(x):
         else:
             x += stringSwitchAfter
     x = splitAlpha(x)
-    '''length = len(x)
-    for i in range(length):
-        alphaValues = ''
-        numValues = 0
-        current = x[i]
-        if len(current) > 1:
-            for j in range(len(current)):
-                if current[j].isdigit():
-                    numValues += int(current[j])
-                elif current[j].isalpha():
-                    alphaValues += current[j]
-        x[i] = alphaValues
-        for i in range(numValues):
-            x.append(alphaValues)'''
+    print(x)        
     return x
 
 def mainMethod():
@@ -91,5 +78,4 @@ def mainMethod():
     y = handleString(x)
     print(y)
     countOccurences(y)
-
 mainMethod()
