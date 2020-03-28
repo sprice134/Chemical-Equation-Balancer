@@ -103,7 +103,7 @@ def combineDicts(x):
                 total.append(j)
     return countOccurences(total)
 
-def multipyMolecules(x, num):
+def multipyMolecule(x, num):
     for i in x:
         x[i] *= num
     return x
@@ -125,18 +125,25 @@ def basicUI():
     if reactantsCombined == productsCombined:
         print("Already Balanced")
         return
+    else:
+        loopPossibilities4(reactants, products)
     
-
-
-
+    
+def loopPossibilities4(r, p):
+    for i in range(1,6):
+        for j in range(1,6):
+            for k in range(1, 6):
+                for l in range(1,6):
+                    reactants = [multipyMolecule(r[0], i), multipyMolecule(r[1], j)]
+                    products = [multipyMolecule(p[0], k), multipyMolecule(p[1], l)]
+                    reactantsCombined = combineDicts(reactants)
+                    productsCombined = combineDicts(products)
+                    if reactantsCombined == productsCombined:
+                        print("Balanced")
+                        return
+    return "Not possible within this margin"
 
 def mainMethod():
-    r = input("How many reactants\n")
-    r = convertMolecule(r)
-    print(r)
-    molecule = r
-    for i in range(5):
-        test = copy.deepcopy(molecule)
-        print(multipyMolecules(test, i))
+    basicUI()
 
 mainMethod()
