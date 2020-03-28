@@ -19,26 +19,52 @@ def findSyntax(x):
     z = int()
     count = 0
     a = list()
+    hasSyntax = False
     for i in range(len(x)):
         if (x[i].isalpha() == False):
             if x[i] == "(":
                 y = i
                 count += 1
+                hasSyntax = True
             elif x[i] == ")":
                 z = i
                 count -= 1
     if count != 0:
         print("Please make sure you have the right syntax")
         return []
-    a.append(y+1)
-    a.append(z)
-    return a
+    elif hasSyntax:
+        a.append(y+1)
+        a.append(z)
+        return a
+    else:
+        return []
+
+def handleString(x):
+    badChars = ['/', ',', '.', '-',' ','!','^']
+    for i in range(len(x)):
+        if x[i] in badChars:
+            print("Please provide proper syntax")
+            return ""
+    test = findSyntax(x)
+    print(len(test))
+    if len(test) > 0:
+        stringSwitchBefore = x[test[0]-1: test[1]+1]
+        stringSwitchAfter = x[test[0]:test[1]]
+        passes = 0
+        if x[test[1]+1].isdigit():
+            passes = int(x[test[1]+1])
+            x = x.replace(x[test[1]+1], '')
+        x = x.replace(stringSwitchBefore, '')
+        if passes > 0:
+            for i in range(passes):
+                x += stringSwitchAfter
+        else:
+            x += stringSwitchAfter
+    return x
 
 def mainMethod():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
     x = input("What is the first reactant: \n")
-    test = findSyntax(x)
-    if len(test) > 0:
-        print(x[test[0]:test[1]])
+    print(handleString(x))
 
 mainMethod()
