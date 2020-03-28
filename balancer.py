@@ -1,3 +1,5 @@
+import copy
+
 def splitAlpha(x):
     y = list()#y is a list of capital seperated components, splicing a string with a name was goiing to be way to complicated
     for i in range(len(x)):
@@ -101,6 +103,11 @@ def combineDicts(x):
                 total.append(j)
     return countOccurences(total)
 
+def multipyMolecules(x, num):
+    for i in x:
+        x[i] *= num
+    return x
+
 def basicUI():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
     r = input("How many reactants\n")
@@ -124,6 +131,12 @@ def basicUI():
 
 
 def mainMethod():
-    basicUI()
+    r = input("How many reactants\n")
+    r = convertMolecule(r)
+    print(r)
+    molecule = r
+    for i in range(5):
+        test = copy.deepcopy(molecule)
+        print(multipyMolecules(test, i))
 
 mainMethod()
