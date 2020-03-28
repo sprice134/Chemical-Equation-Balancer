@@ -4,7 +4,9 @@ def splitAlpha(x):
         if x[i].isupper():
             y.append(i)
     if len(y) == 1:
-        return x
+        z = list()
+        z.append(x)
+        return z
     elif len(y) > 1:
         sections = list()
         for i in range(len(y)):
@@ -88,7 +90,6 @@ def convertMolecule(x):
     if len(test) > 0:
         x = eliminateSyntax(test[0], test[1], x)
     x = splitAlpha(x)
-    print(x)
     x = countOccurences(x) 
     return x
 
@@ -112,15 +113,17 @@ def basicUI():
     for i in range(int(p)):
         x = input("What is product #" + str(i+1) + ":\n")
         products.append(convertMolecule(x))
-    reactants = combineDicts(reactants)
-    products = combineDicts(products)
-    print(reactants)
-    print(products)
+    reactantsCombined = combineDicts(reactants)
+    productsCombined = combineDicts(products)
+    if reactantsCombined == productsCombined:
+        print("Already Balanced")
+        return
+    
+
 
 
 
 def mainMethod():
-    r = input("How many reactants\n")
-    print(convertMolecule(r))
+    basicUI()
 
 mainMethod()
