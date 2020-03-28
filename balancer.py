@@ -78,8 +78,7 @@ def countOccurences(x):
             countedResults[newList2[i]] = newList2.count(newList2[i])
     return countedResults
 
-
-def handleString(x):
+def convertMolecule(x):
     badChars = ['/', ',', '.', '-',' ','!','^']
     for i in range(len(x)):
         if x[i] in badChars:
@@ -89,12 +88,39 @@ def handleString(x):
     if len(test) > 0:
         x = eliminateSyntax(test[0], test[1], x)
     x = splitAlpha(x)
+    print(x)
     x = countOccurences(x) 
     return x
 
-def mainMethod():
+def combineDicts(x):
+    total = list()
+    for i in range(len(x)):
+        for j in x[i]:
+            for k in range((x[i])[j]):
+                total.append(j)
+    return countOccurences(total)
+
+def basicUI():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
-    x = input("What is the first reactant: \n")
-    y = handleString(x)
-    print(y)
+    r = input("How many reactants\n")
+    p = input("How many products\n")
+    reactants = list()
+    products = list()
+    for i in range(int(r)):
+        x = input("What is reactant #" + str(i+1) + ":\n")
+        reactants.append(convertMolecule(x))
+    for i in range(int(p)):
+        x = input("What is product #" + str(i+1) + ":\n")
+        products.append(convertMolecule(x))
+    reactants = combineDicts(reactants)
+    products = combineDicts(products)
+    print(reactants)
+    print(products)
+
+
+
+def mainMethod():
+    r = input("How many reactants\n")
+    print(convertMolecule(r))
+
 mainMethod()
