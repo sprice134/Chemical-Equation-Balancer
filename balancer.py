@@ -139,6 +139,12 @@ def basicUI():
         elif r == 2 and p == 1:
             x = loopPossibilities21(reactants, products)
             count = 3
+        elif r == 1 and p == 3:
+            x = loopPossibilities13(reactants, products)
+            count = 4
+        elif r == 3 and p == 1:
+            x = loopPossibilities31(reactants, products)
+            count = 5
         if x == '':
             print("Not possible within this margin")
         else:
@@ -148,6 +154,10 @@ def basicUI():
                 print(str(x[0]) + re[0] + " -> " + str(x[1]) + pr[0] + ' + ' + str(x[2]) + pr[1])
             elif count == 3:
                 print(str(x[0]) + re[0] + ' + ' + str(x[1]) + re[1] + " -> " + str(x[2]) + pr[0])
+            elif count == 4:
+                print(str(x[0]) + re[0] + " -> " + str(x[1]) + pr[0] + " + " + str(x[2]) + pr[1]  + ' + ' + str(x[3]) + pr[2])
+            elif count == 5:
+                print(str(x[0]) + re[0] + " + " + str(x[1]) + re[1] + " + " + str(x[2]) + re[2]  +  " -> "+ str(x[3]) + pr[0])
             elif count == 0:
                 print(':(')
 
@@ -199,10 +209,41 @@ def loopPossibilities21(r, p):
                     if reactantsCombined == productsCombined:
                         return [i,j,k]
     return ''
-def loopPossibilities13():
-    pass
-def loopPossibilities31():
-    pass
+def loopPossibilities13(r, p):
+    for x in range(2,8):
+        for i in range(1,x):
+            for j in range(1,x):
+                for k in range(1, x):
+                    for l in range(1,x):
+                        r1 = copy.deepcopy(r[0])
+                        p1 = copy.deepcopy(p[0])
+                        p2 = copy.deepcopy(p[1])
+                        p3 = copy.deepcopy(p[2])
+                        reactants = [multipyMolecule(r1, i)]
+                        products = [multipyMolecule(p1, j), multipyMolecule(p2, k), multipyMolecule(p3, l)]
+                        reactantsCombined = combineDicts(reactants)
+                        productsCombined = combineDicts(products)
+                        if reactantsCombined == productsCombined:
+                            return [i,j,k,l]
+    return ''
+def loopPossibilities31(r, p):
+    for x in range(2,8):
+        for i in range(1,x):
+            for j in range(1,x):
+                for k in range(1, x):
+                    for l in range(1,x):
+                        r1 = copy.deepcopy(r[0])
+                        r2 = copy.deepcopy(r[1])
+                        r3 = copy.deepcopy(r[2])
+                        p1 = copy.deepcopy(p[0])
+                        reactants = [multipyMolecule(r1, i), multipyMolecule(r2, j), multipyMolecule(r3, k)]
+                        products = [multipyMolecule(p1, l)]
+                        reactantsCombined = combineDicts(reactants)
+                        productsCombined = combineDicts(products)
+                        if reactantsCombined == productsCombined:
+                            print([i,j,k,l])
+                            return [i,j,k,l]
+    return ''
 def loopPossibilities23():
     pass
 def loopPossibilities32():
