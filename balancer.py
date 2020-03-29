@@ -109,37 +109,48 @@ def multipyMolecule(x, num):
 
 def basicUI():
     print("Welcome, DISCLAIMER: Can only handle 1 set of parenthases per molecule")
-    r = input("How many reactants\n")
-    p = input("How many products\n")
+    r = int(input("How many reactants\n"))
+    p = int(input("How many products\n"))
     reactants = list()
     products = list()
     re = list()
     pr = list()
-    for i in range(int(r)):
+    for i in range(r):
         x = input("What is reactant #" + str(i+1) + ":\n")
         reactants.append(convertMolecule(x))
         re.append(x)
-    for i in range(int(p)):
+    for i in range(p):
         x = input("What is product #" + str(i+1) + ":\n")
         products.append(convertMolecule(x))
         pr.append(x)
     reactantsCombined = combineDicts(reactants)
     productsCombined = combineDicts(products)
+    count = 0
     if reactantsCombined == productsCombined:
         print("Already Balanced")
         return
     else:
         if r == 2 and p == 2:
             x = loopPossibilities22(reactants, products)
+            count = 1
         elif r == 1 and p == 2:
             x = loopPossibilities12(reactants, products)
+            count = 2
         elif r == 2 and p == 1:
-            x = loopPossibilities12(reactants, products)
+            x = loopPossibilities21(reactants, products)
+            count = 3
         if x == '':
             print("Not possible within this margin")
         else:
-            print(str(x[0]) + re[0] + " + " + str(x[1]) + re[1] + " -> " + str(x[2]) + pr[0] + ' + ' + str(x[3]) + pr[1])
- 
+            if count == 1:
+                print(str(x[0]) + re[0] + " + " + str(x[1]) + re[1] + " -> " + str(x[2]) + pr[0] + ' + ' + str(x[3]) + pr[1])
+            elif count == 2:
+                print(str(x[0]) + re[0] + " -> " + str(x[1]) + pr[0] + ' + ' + str(x[2]) + pr[1])
+            elif count == 3:
+                print(str(x[0]) + re[0] + ' + ' + str(x[1]) + re[1] + " -> " + str(x[2]) + pr[0])
+            elif count == 0:
+                print(':(')
+
  
 def loopPossibilities22(r, p):
     for x in range(2,8):
@@ -173,8 +184,21 @@ def loopPossibilities12(r, p):
                     if reactantsCombined == productsCombined:
                         return [i,j,k]
     return ''
-def loopPossibilities21():
-    pass
+def loopPossibilities21(r, p):
+    for x in range(2,8):
+        for i in range(1,x):
+            for j in range(1,x):
+                for k in range(1, x):
+                    r1 = copy.deepcopy(r[0])
+                    r2 = copy.deepcopy(r[1])
+                    p1 = copy.deepcopy(p[0])
+                    reactants = [multipyMolecule(r1, i), multipyMolecule(r2, j)]
+                    products = [multipyMolecule(p1, k)]
+                    reactantsCombined = combineDicts(reactants)
+                    productsCombined = combineDicts(products)
+                    if reactantsCombined == productsCombined:
+                        return [i,j,k]
+    return ''
 def loopPossibilities13():
     pass
 def loopPossibilities31():
