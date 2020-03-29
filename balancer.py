@@ -1,5 +1,4 @@
 import copy
-
 def splitAlpha(x):
     y = list()#y is a list of capital seperated components, splicing a string with a name was goiing to be way to complicated
     for i in range(len(x)):
@@ -114,33 +113,40 @@ def basicUI():
     p = input("How many products\n")
     reactants = list()
     products = list()
+    re = list()
+    pr = list()
     for i in range(int(r)):
         x = input("What is reactant #" + str(i+1) + ":\n")
         reactants.append(convertMolecule(x))
+        re.append(x)
     for i in range(int(p)):
         x = input("What is product #" + str(i+1) + ":\n")
         products.append(convertMolecule(x))
+        pr.append(x)
     reactantsCombined = combineDicts(reactants)
     productsCombined = combineDicts(products)
     if reactantsCombined == productsCombined:
         print("Already Balanced")
         return
     else:
-        print("running Loop")
-        loopPossibilities4(reactants, products)
-    
-    
-def loopPossibilities4(r, p):
-    for x in range(2,4):
-        print("x")
+        if r == 2 and p == 2:
+            x = loopPossibilities22(reactants, products)
+        elif r == 1 and p == 2:
+            x = loopPossibilities12(reactants, products)
+        elif r == 2 and p == 1:
+            x = loopPossibilities12(reactants, products)
+        if x == '':
+            print("Not possible within this margin")
+        else:
+            print(str(x[0]) + re[0] + " + " + str(x[1]) + re[1] + " -> " + str(x[2]) + pr[0] + ' + ' + str(x[3]) + pr[1])
+ 
+ 
+def loopPossibilities22(r, p):
+    for x in range(2,8):
         for i in range(1,x):
-            print("i")
             for j in range(1,x):
-                print("j")
                 for k in range(1, x):
-                    print("k")
                     for l in range(1,x):
-                        print("l")
                         r1 = copy.deepcopy(r[0])
                         r2 = copy.deepcopy(r[1])
                         p1 = copy.deepcopy(p[0])
@@ -149,11 +155,34 @@ def loopPossibilities4(r, p):
                         products = [multipyMolecule(p1, k), multipyMolecule(p2, l)]
                         reactantsCombined = combineDicts(reactants)
                         productsCombined = combineDicts(products)
-                        print(productsCombined)
                         if reactantsCombined == productsCombined:
                             return [i,j,k,l]
-    print("Not possible within this margin")
     return ''
+def loopPossibilities12(r, p):
+    for x in range(2,8):
+        for i in range(1,x):
+            for j in range(1,x):
+                for k in range(1, x):
+                    r1 = copy.deepcopy(r[0])
+                    p1 = copy.deepcopy(p[0])
+                    p2 = copy.deepcopy(p[1])
+                    reactants = [multipyMolecule(r1, i)]
+                    products = [multipyMolecule(p1, j), multipyMolecule(p2, k)]
+                    reactantsCombined = combineDicts(reactants)
+                    productsCombined = combineDicts(products)
+                    if reactantsCombined == productsCombined:
+                        return [i,j,k]
+    return ''
+def loopPossibilities21():
+    pass
+def loopPossibilities13():
+    pass
+def loopPossibilities31():
+    pass
+def loopPossibilities23():
+    pass
+def loopPossibilities32():
+    pass
 
 def mainMethod():
     basicUI()
