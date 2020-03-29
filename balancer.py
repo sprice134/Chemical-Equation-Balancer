@@ -126,22 +126,34 @@ def basicUI():
         print("Already Balanced")
         return
     else:
+        print("running Loop")
         loopPossibilities4(reactants, products)
     
     
 def loopPossibilities4(r, p):
-    for i in range(1,6):
-        for j in range(1,6):
-            for k in range(1, 6):
-                for l in range(1,6):
-                    reactants = [multipyMolecule(r[0], i), multipyMolecule(r[1], j)]
-                    products = [multipyMolecule(p[0], k), multipyMolecule(p[1], l)]
-                    reactantsCombined = combineDicts(reactants)
-                    productsCombined = combineDicts(products)
-                    if reactantsCombined == productsCombined:
-                        print("Balanced")
-                        return
-    return "Not possible within this margin"
+    for x in range(2,4):
+        print("x")
+        for i in range(1,x):
+            print("i")
+            for j in range(1,x):
+                print("j")
+                for k in range(1, x):
+                    print("k")
+                    for l in range(1,x):
+                        print("l")
+                        r1 = copy.deepcopy(r[0])
+                        r2 = copy.deepcopy(r[1])
+                        p1 = copy.deepcopy(p[0])
+                        p2 = copy.deepcopy(p[1])
+                        reactants = [multipyMolecule(r1, i), multipyMolecule(r2, j)]
+                        products = [multipyMolecule(p1, k), multipyMolecule(p2, l)]
+                        reactantsCombined = combineDicts(reactants)
+                        productsCombined = combineDicts(products)
+                        print(productsCombined)
+                        if reactantsCombined == productsCombined:
+                            return [i,j,k,l]
+    print("Not possible within this margin")
+    return ''
 
 def mainMethod():
     basicUI()
