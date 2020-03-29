@@ -1,2 +1,3 @@
-# Chemical-Equation-Balancer
-Seperates molecules into atoms per reactant, per product and then cycles through all possibilities until a balanced equation is found
+# Chemical Equation Balancer
+Just a simple program to balanced equation.
+It takes a user input of reactants and products and strips each reactant into its different elements. It then creates a dictionary for each reactant with the key to each index being the total number in that molecule. Once all of the molecules are stripped into manageable forms, it loops through all of the possibilities until it has found a balanced eqaution or hits its hard stop limit. (The hard stop limit is not neccesary and can be removed, however, it all depends on if you want the program to run 1000^5 times through, or recognize the molecule may not have been input properly
