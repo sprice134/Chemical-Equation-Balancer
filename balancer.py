@@ -241,7 +241,6 @@ def loopPossibilities31(r, p):
                         reactantsCombined = combineDicts(reactants)
                         productsCombined = combineDicts(products)
                         if reactantsCombined == productsCombined:
-                            print([i,j,k,l])
                             return [i,j,k,l]
     return ''
 def loopPossibilities23():
